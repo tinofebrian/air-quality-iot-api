@@ -1,0 +1,236 @@
+{
+  "info": {
+    "name": "Air Quality IoT API",
+    "description": "Collection pengujian REST API Multi-Zone Environmental & Air Quality Monitoring (UTS Pemrograman Web Lanjut)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/health",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "5000",
+          "path": ["api", "health"]
+        }
+      }
+    },
+    {
+      "name": "Get Zones",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/zones",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "5000",
+          "path": ["api", "zones"]
+        }
+      }
+    },
+    {
+      "name": "Create Zone",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Gudang Bahan Baku\",\n  \"location_code\": \"ZN-GDG-03\",\n  \"temp_max\": 28.0,\n  \"humidity_max\": 70.0,\n  \"air_quality_max\": 95.0\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/zones",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "5000",
+          "path": ["api", "zones"]
+        }
+      }
+    },
+    {
+      "name": "Get Nodes (Filter by zone_id)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/nodes?zone_id=1",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "5000",
+          "path": ["api", "nodes"],
+          "query": [
+            {
+              "key": "zone_id",
+              "value": "1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get Readings (Pagination)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/readings?page=1&per_page=5",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "5000",
+          "path": ["api", "readings"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "per_page",
+              "value": "5"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Create Reading (Trigger Alert)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"node_id\": 2,\n  \"temperature\": 33.5,\n  \"humidity\": 65.0,\n  \"air_quality_ppm\": 130.0\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/readings",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "5000",
+          "path": ["api", "readings"]
+        }
+      }
+    },
+    {
+      "name": "Get Alerts (Filter by status)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/alerts?status=open",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "5000",
+          "path": ["api", "alerts"],
+          "query": [
+            {
+              "key": "status",
+              "value": "open"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Update Alert Status",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"acknowledged\"\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/alerts/1/status",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "5000",
+          "path": ["api", "alerts", "1", "status"]
+        }
+      }
+    },
+    {
+      "name": "Get Maintenance Logs",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/maintenance?node_id=1",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "5000",
+          "path": ["api", "maintenance"],
+          "query": [
+            {
+              "key": "node_id",
+              "value": "1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Create Maintenance Log",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"node_id\": 1,\n  \"activity_type\": \"inspection\",\n  \"notes\": \"Pengecekan kabel sensor dan ventilasi housing node.\",\n  \"performed_by\": \"Operator Lapangan\"\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/maintenance",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "5000",
+          "path": ["api", "maintenance"]
+        }
+      }
+    },
+    {
+      "name": "Validation Error Test (400)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"node_id\": 1,\n  \"temperature\": 26.0,\n  \"humidity\": 150.0,\n  \"air_quality_ppm\": 50.0\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/readings",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "5000",
+          "path": ["api", "readings"]
+        }
+      }
+    }
+  ]
+}
